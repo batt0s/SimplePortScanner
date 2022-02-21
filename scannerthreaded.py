@@ -65,11 +65,9 @@ def main():
 	open_ports = []
 
 	try:
-
 		tgtIP = socket.gethostbyname(tgtHost)
 
 	except:
-
 		print(colored.FAIL + "[!] Unknown host " + tgtHost + colored.ENDC)
 		sys.exit()
 
@@ -77,7 +75,6 @@ def main():
 	queue = Queue()
 
 	for tgtPort in tgtPorts:
-
 		queue.put(tgtPort)
 
 
@@ -85,11 +82,8 @@ def main():
 	print("\n")
 
 	def worker():
-
 		while not queue.empty():
-
 			tgtPort = queue.get()
-
 			Scan(tgtHost, tgtPort)
 
 	thread_list = []
@@ -97,17 +91,13 @@ def main():
 	start = datetime.now()
 
 	for t in range(threads):
-
 		thread = threading.Thread(target=worker)
-
 		thread_list.append(thread)
 
 	for thread in thread_list:
-
 		thread.start()
 
 	for thread in thread_list:
-
 		thread.join()
 
 	stop = datetime.now()
@@ -128,16 +118,11 @@ def Scan(tgtHost, tgtPort):
 
 
 	try:
-
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.connect((tgtHost, int(tgtPort)))
-
 		try:
-
 			banner = s.recv(1024).decode()
-
 		except:
-
 			banner = colored.FAIL + "[-]" + colored.ENDC + "Can't grab banner."
 
 		open_ports.append(tgtPort)
@@ -146,11 +131,9 @@ def Scan(tgtHost, tgtPort):
 
 
 	except:
-
 		print(colored.FAIL + "\n[-]" + colored.ENDC + f" {tgtPort}/tcp is closed.")
 
 	finally:
-
 		s.close()
 
 
